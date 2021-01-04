@@ -1,0 +1,89 @@
+from Queue import *
+
+
+
+def queueInOrder(someQueue):
+    waitlist = []               #a list to hold values that are dequeued
+    
+    while someQueue.size() != 0:    #my start to the loop
+        
+        
+        minvalue = someQueue.dequeue()
+        waitlist.append(minvalue)
+        if someQueue.size()  == 0:  #if we reach the end then everything is ok
+            for i in waitlist:      #return to normal
+                someQueue.enqueue(i)
+            return True
+            
+        nextvalue = someQueue.front()
+
+        if minvalue > nextvalue:#if the list is unsorted return it to how it was
+            while someQueue.size() != 0:                        
+                waitlist.append(someQueue.dequeue())
+                
+            for i in waitlist:
+                someQueue.enqueue(i)
+            return False
+
+        
+    return False        #I'm not sure why false is not returned
+    
+   
+##def test():
+##    someQueue = Queue()
+##    someQueue.enqueue(2)
+##    someQueue.enqueue(4)
+##    someQueue.enqueue(3)
+##    someQueue.enqueue(5)
+##    someQueue.enqueue(6)
+##    
+##    print(someQueue)
+##    queueInOrder(someQueue)
+##    print(someQueue)
+##    
+##
+##test()
+
+# Testing
+def main():
+    q = Queue()
+    q.enqueue(1)
+    q.enqueue(4)
+    q.enqueue(2)
+    q.enqueue(3)
+    q.enqueue(5)
+    q.enqueue(6)
+    q.enqueue(7)
+
+    if queueInOrder(q) == True:
+        print("The queue is in order.")
+    else:
+        print("The queue isn't in order.")
+    print("( The result should be:The queue isn't in order.)")
+    print("Checking that the someQueue stayed the same:")
+    print(f"the queue size is {q.size()} (should be 7)")
+    for i in range(q.size()):
+        print(q.dequeue())
+    print()
+
+    print("Next test:")
+    q1 = Queue()
+    q1.enqueue(1)
+    q1.enqueue(4)
+    q1.enqueue(6)
+    q1.enqueue(8)
+    q1.enqueue(15)
+    q1.enqueue(16)
+    q1.enqueue(17)
+
+    if queueInOrder(q1) == True:
+        print("The queue is in order.")
+    else:
+        print("The queue isn't in order.")
+
+    print("( The result should be:The queue is in order.)")
+    print("Checking that the someQueue stayed the same:")
+    for i in range(q1.size()):
+        print(q1.dequeue())
+    
+main()   
